@@ -1,0 +1,18 @@
+C:\Users\Felipe Pimenta Silva\Desktop\DOTNETCORE\ProAgil.Domain\bin\Debug\netstandard2.0\ProAgil.Domain.deps.json
+C:\Users\Felipe Pimenta Silva\Desktop\DOTNETCORE\ProAgil.Domain\bin\Debug\netstandard2.0\ProAgil.Domain.dll
+C:\Users\Felipe Pimenta Silva\Desktop\DOTNETCORE\ProAgil.Domain\bin\Debug\netstandard2.0\ProAgil.Domain.pdb
+C:\Users\Felipe Pimenta Silva\Desktop\DOTNETCORE\ProAgil.Domain\obj\Debug\netstandard2.0\ProAgil.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Felipe Pimenta Silva\Desktop\DOTNETCORE\ProAgil.Domain\obj\Debug\netstandard2.0\ProAgil.Domain.AssemblyInfoInputs.cache
+C:\Users\Felipe Pimenta Silva\Desktop\DOTNETCORE\ProAgil.Domain\obj\Debug\netstandard2.0\ProAgil.Domain.AssemblyInfo.cs
+C:\Users\Felipe Pimenta Silva\Desktop\DOTNETCORE\ProAgil.Domain\obj\Debug\netstandard2.0\ProAgil.Domain.dll
+C:\Users\Felipe Pimenta Silva\Desktop\DOTNETCORE\ProAgil.Domain\obj\Debug\netstandard2.0\ProAgil.Domain.pdb
+C:\Users\Felipe Pimenta Silva\Desktop\DOTNETCORE\ProAgil.Domain\obj\Debug\netstandard2.0\ProAgil.Domain.csprojAssemblyReference.cache
+C:\Users\fpiments\Desktop\DOTNETCORE\ProAgil\ProAgil.Domain\bin\Debug\netstandard2.0\ProAgil.Domain.deps.json
+C:\Users\fpiments\Desktop\DOTNETCORE\ProAgil\ProAgil.Domain\bin\Debug\netstandard2.0\ProAgil.Domain.dll
+C:\Users\fpiments\Desktop\DOTNETCORE\ProAgil\ProAgil.Domain\bin\Debug\netstandard2.0\ProAgil.Domain.pdb
+C:\Users\fpiments\Desktop\DOTNETCORE\ProAgil\ProAgil.Domain\obj\Debug\netstandard2.0\ProAgil.Domain.csprojAssemblyReference.cache
+C:\Users\fpiments\Desktop\DOTNETCORE\ProAgil\ProAgil.Domain\obj\Debug\netstandard2.0\ProAgil.Domain.csproj.CoreCompileInputs.cache
+C:\Users\fpiments\Desktop\DOTNETCORE\ProAgil\ProAgil.Domain\obj\Debug\netstandard2.0\ProAgil.Domain.AssemblyInfoInputs.cache
+C:\Users\fpiments\Desktop\DOTNETCORE\ProAgil\ProAgil.Domain\obj\Debug\netstandard2.0\ProAgil.Domain.AssemblyInfo.cs
+C:\Users\fpiments\Desktop\DOTNETCORE\ProAgil\ProAgil.Domain\obj\Debug\netstandard2.0\ProAgil.Domain.dll
+C:\Users\fpiments\Desktop\DOTNETCORE\ProAgil\ProAgil.Domain\obj\Debug\netstandard2.0\ProAgil.Domain.pdb
