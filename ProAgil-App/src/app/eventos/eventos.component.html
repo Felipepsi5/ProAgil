@@ -39,7 +39,7 @@
     <tr *ngFor="let eventos of eventosFiltrados">
       <td>
         <img *ngIf="mostrarImagem"
-        src="http://localhost:5000/Resources/images/{{eventos.imageURL}}"
+        src="http://localhost:5000/Resources/images/{{eventos.imageURL}}?_ts={{dataAtual}}"
         [style.width.px]="imagemLargura"
         [style.margin.px]="imagemMargem">
       </td>
