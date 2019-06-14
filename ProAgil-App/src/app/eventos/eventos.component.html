@@ -5,7 +5,7 @@
    <label class="mr-2">Filtro</label>
    <input type="text" class="form-control mr-2" placeholder="buscar"
     [(ngModel)]="filtroLista">
-    <button class="btn btn-outline-success"> buscar</button>
+    <button class="btn btn-outline-success">buscar</button>
   </div>
 </div>
 <div>
@@ -39,7 +39,7 @@
     <tr *ngFor="let eventos of eventosFiltrados">
       <td>
         <img *ngIf="mostrarImagem"
-        src="http://localhost:5000/img/{{eventos.imageURL}}"
+        src="http://localhost:5000/Resources/images/{{eventos.imageURL}}"
         [style.width.px]="imagemLargura"
         [style.margin.px]="imagemMargem">
       </td>
@@ -153,10 +153,21 @@
                 </div>
                 <div class="form-group col-md-9">
                   <label>Imagem</label>
-                  <input type="text"
-                  [ngClass]="{'is-invalid': registerForm.get('imageURL').errors
-                  && registerForm.get('imageURL').touched}"
-                  class="form-control is-invalid" formControlName = "imageURL">
+                  <table>
+                    <tr>
+                      <td>
+                          <button class="btn btn-success"(click)="file.click()">
+                              Enviar Imagem
+                            </button>
+                          <input type="file" #file [ngClass]="{'is-invalid': registerForm.get('imageURL').errors
+                                 && registerForm.get('imageURL').touched}" (change)="onFileChange($event)"
+                                 class="form-control is-invalid" formControlName = "imageURL" placeholder=""
+                                 style="display:none">
+                      </td>
+                    </tr>
+                  </table>
+
+
                   <div *ngIf="registerForm.get('imageURL').hasError('required')" class="invalid-feedback">
                      Imagem é Obritório.
                   </div>

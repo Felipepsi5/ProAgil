@@ -5,6 +5,7 @@ import { BsModalService } from 'ngx-bootstrap';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { defineLocale, BsLocaleService, ptBrLocale } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { ElementSchemaRegistry } from '@angular/compiler';
 defineLocale('pt-br', ptBrLocale);
 
 @Component({
@@ -27,6 +28,9 @@ export class EventosComponent implements OnInit {
   mostrarImagem = false;
   registerForm: FormGroup;
   _filtroLista: string = '';
+
+
+  file: File;
 
    constructor(
      private eventoService: EventoService,
@@ -56,8 +60,9 @@ export class EventosComponent implements OnInit {
   editarEvento(evento: Evento, template: any){
     this.modoSalvar = 'put';
     this.openModal(template);
-    this.evento = evento;
-    this.registerForm.patchValue(evento);
+    this.evento = Object.assign({}, evento);
+    this.evento.imageURL = '';
+    this.registerForm.patchValue(this.evento);
   }
    novoEvento(template: any){
      this.modoSalvar = 'post';
@@ -96,10 +101,25 @@ export class EventosComponent implements OnInit {
          email: ['', [Validators.required, Validators.email]]
     });
   }
+
+  uploadImagem(){
+       const nomeArquivo = this.evento.imageURL.split('\\',3);
+       this.evento.imageURL = nomeArquivo[2];
+       this.eventoService.postUpload(this.file, nomeArquivo[2]).subscribe();
+  }
+  onFileChange(event) {
+     const reader = new FileReader();
+     if(event.target.files && event.target.files.length){
+           this.file = event.target.files;
+           console.log(this.file);
+     }
+  }
+
   salvarAlteracao(template: any){
     if (this.registerForm.valid){
       if(this.modoSalvar == 'post'){
        this.evento = Object.assign({}, this.registerForm.value);
+       this.uploadImagem();
        this.eventoService.postEvento(this.evento).subscribe(
         (novoEvento: Evento) => {
           console.log(novoEvento);
@@ -112,11 +132,11 @@ export class EventosComponent implements OnInit {
         }
        );
       }
-      else {
+       else{
            this.evento = Object.assign({id: this.evento.id}, this.registerForm.value);
+           this.uploadImagem();
            this.eventoService.putEvento(this.evento).subscribe(
-            (novoEvento: Evento) => {
-              console.log(novoEvento);
+            () => {
               template.hide();
               this.getEventos();
               this.toastr.success('Editado com sucesso!');

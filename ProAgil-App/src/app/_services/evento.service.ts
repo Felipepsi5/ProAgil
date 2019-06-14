@@ -7,7 +7,7 @@ import { Evento } from '../_models/Evento';
   providedIn: 'root'
 })
 export class EventoService {
-baseUrl = 'http://localhost:5000/api/evento'
+baseUrl = 'http://localhost:5000/api/evento';
 constructor(private http: HttpClient) { }
 
 getAllEvento(): Observable<Evento[]> {
@@ -18,8 +18,15 @@ getEventoByTema(tema: string): Observable<Evento[]> {
   return this.http.get<Evento[]>(`${this.baseUrl}/getByTema/${tema}`);
 }
 
-getEventoById(id:number): Observable<Evento> {
+getEventoById(id: number): Observable<Evento> {
   return this.http.get<Evento>(`${this.baseUrl}/${id}`);
+}
+
+postUpload(file: File, name: string){
+  const  fileToUpload = <File>file[0];
+  const  formData = new FormData();
+  formData.append('file', fileToUpload, name);
+  return this.http.post(`${this.baseUrl}/upload`, formData);
 }
 
 postEvento(evento: Evento){

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ProAgil.Repository;
@@ -21,9 +23,9 @@ namespace ProAgil.API
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-        }
 
-        public IConfiguration Configuration { get; }
+        }
+                public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -54,7 +56,10 @@ namespace ProAgil.API
             // app.UseHttpsRedirection();
             app.UseCors(x=> x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseStaticFiles();
-            
+            app.UseStaticFiles(new StaticFileOptions(){
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+                RequestPath = new Microsoft.AspNetCore.Http.PathString("/Resources")
+            });            
             app.UseMvc();
         }
     }
