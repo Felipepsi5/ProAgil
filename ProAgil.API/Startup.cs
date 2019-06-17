@@ -4,16 +4,20 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using ProAgil.Domain.Identity;
 using ProAgil.Repository;
 
 namespace ProAgil.API
@@ -23,9 +27,8 @@ namespace ProAgil.API
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-
         }
-                public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -33,11 +36,33 @@ namespace ProAgil.API
             services.AddDbContext<ProAgilContext>(
                 x=>x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped<IProAgilRepository, ProAgilRepository>();      
-
-            services.AddAutoMapper();
+            IdentityBuilder builder  = services.AddIdentityCore<Usuario>(Options => {
+                Options.Password.RequireDigit = false;
+                Options.Password.RequireNonAlphanumeric = false;
+                Options.Password.RequireLowercase = false;
+                Options.Password.RequireUppercase = false;
+                Options.Password.RequiredLength = 4;                
+            });
             
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+             builder = new IdentityBuilder(builder.UserType, typeof(Papel), builder.Services);
+             builder.AddEntityFrameworkStores<ProAgilContext>();
+             builder.AddRoleValidator<RoleValidator<Papel>>();
+             builder.AddRoleManager<RoleManager<Papel>>();
+             builder.AddSignInManager<SignInManager<Usuario>>();
+             
+            services.AddMvc(
+                options => {
+                    var policy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+                    options.Filters.Add(new AuthorizeFilter(policy));
+                })                         
+            
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+            .AddJsonOptions(Options=>Options.SerializerSettings.ReferenceLoopHandling = 
+            Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddScoped<IProAgilRepository, ProAgilRepository>();      
+            services.AddAutoMapper();
             services.AddCors();
         }
 
