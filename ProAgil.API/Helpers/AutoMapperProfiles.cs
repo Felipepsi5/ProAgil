@@ -2,6 +2,7 @@ using System.Linq;
 using AutoMapper;
 using ProAgil.API.Dto;
 using ProAgil.Domain;
+using ProAgil.Domain.Identity;
 
 namespace ProAgil.API.Helpers
 {
@@ -16,9 +17,11 @@ namespace ProAgil.API.Helpers
             CreateMap<Palestrante, PalestranteDto>()
             .ForMember(dest=> dest.Eventos, opt=> {
                 opt.MapFrom(src => src.PalestranteEventos.Select(x=>x.Evento).ToList());
-            });
-            CreateMap<Lote, LoteDto>();
-            CreateMap<RedeSocial, RedeSocialDto>();           
+            }).ReverseMap();
+            CreateMap<Lote, LoteDto>().ReverseMap();
+            CreateMap<RedeSocial, RedeSocialDto>().ReverseMap();  
+            CreateMap<Usuario, UserDto>().ReverseMap();  
+            CreateMap<Usuario, UserLoginDto>().ReverseMap();            
         }
     }
 }
