@@ -1,17 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.Configuration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using ProAgil.API.Dto;
 using ProAgil.Domain.Identity;
@@ -38,11 +37,10 @@ namespace ProAgil.API.Controllers
             _userManager = userManager;
         }
        [HttpGet("GetUser")]
-       public async Task<IActionResult> GetUser(UserDto userDto)
+       public async Task<IActionResult> GetUser() 
        {
-       return Ok(userDto);
+       return Ok(new UserDto());
        }
-
         [HttpPost("Register")]
         [AllowAnonymous]
        public async Task<IActionResult> Register(UserDto userDto)
@@ -100,13 +98,12 @@ namespace ProAgil.API.Controllers
             };
             var roles = await _userManager.GetRolesAsync(user);
 
-        foreach(var item in roles)
+        foreach(var role in roles)
         {
               claims.Add(new Claim(ClaimTypes.Role, role));
         }
       
-        var key = new SymmetricSecurityKey(Encoding.ASCII
-        .GetBytes(_config.GetSection("AppSettings:Token").Value));
+        var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_config.GetSection("AppSettings:Token").Value));
 
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
