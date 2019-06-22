@@ -4,7 +4,7 @@ import { FormsModule,  ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EventosComponent } from './eventos/eventos.component';
-import {HttpClientModule } from "@angular/common/http";
+import {HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NavComponent } from './nav/nav.component';
 import {TooltipModule, ModalModule, BsDropdownModule, BsDatepickerModule} from 'ngx-bootstrap'
 import { DateTimeFormatPipePipe } from './_helps/DateTimeFormatPipe.pipe';
@@ -15,6 +15,10 @@ import { PalestrantesComponent } from './palestrantes/palestrantes.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ContatosComponent } from './contatos/contatos.component';
 import { TituloComponent } from './_shared/titulo/titulo.component';
+import { UserComponent } from './user/user.component';
+import { LoginComponent } from './user/login/login.component';
+import { RegistrationComponent } from './user/registration/registration.component';
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 
 @NgModule({
@@ -27,7 +31,10 @@ import { TituloComponent } from './_shared/titulo/titulo.component';
       PalestrantesComponent,
       DashboardComponent,
       ContatosComponent,
-      TituloComponent
+      TituloComponent,
+      UserComponent,
+      LoginComponent, 
+      RegistrationComponent
    ],
    imports: [
       BrowserModule,
@@ -41,10 +48,15 @@ import { TituloComponent } from './_shared/titulo/titulo.component';
       ReactiveFormsModule,
       BrowserAnimationsModule,
       ToastContainerModule,
-      ToastrModule.forRoot({positionClass :"toast-top-right"})
+      ToastrModule.forRoot({positionClass : "toast-top-right"})
    ],
    providers: [
-     EventoService
+     EventoService,
+     {
+        provide: HTTP_INTERCEPTORS,
+        useClass: AuthInterceptor,
+        multi: true
+     }
    ],
    bootstrap:[
      AppComponent
