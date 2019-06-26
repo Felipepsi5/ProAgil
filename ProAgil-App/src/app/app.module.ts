@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { EventosComponent } from './eventos/eventos.component';
 import {HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NavComponent } from './nav/nav.component';
-import {TooltipModule, ModalModule, BsDropdownModule, BsDatepickerModule} from 'ngx-bootstrap'
+import {TooltipModule, ModalModule, BsDropdownModule, BsDatepickerModule, TabsModule} from 'ngx-bootstrap'
 import { DateTimeFormatPipePipe } from './_helps/DateTimeFormatPipe.pipe';
 import { EventoService } from './_services/evento.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,8 +18,9 @@ import { TituloComponent } from './_shared/titulo/titulo.component';
 import { UserComponent } from './user/user.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegistrationComponent } from './user/registration/registration.component';
+import { EventoEditComponent } from './eventos/eventoEdit/eventoEdit.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
-
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
    declarations: [
@@ -34,10 +35,13 @@ import { AuthInterceptor } from './auth/auth.interceptor';
       TituloComponent,
       UserComponent,
       LoginComponent, 
-      RegistrationComponent
+      RegistrationComponent,
+      EventoEditComponent
    ],
    imports: [
       BrowserModule,
+      TabsModule.forRoot(),
+      NgxMaskModule.forRoot(),
       BsDropdownModule.forRoot(),
       BsDatepickerModule.forRoot(),
       TooltipModule.forRoot(),
